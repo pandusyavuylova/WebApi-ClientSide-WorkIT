@@ -1,0 +1,135 @@
+body {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.header,
+.marketing,
+.footer {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.header {
+    padding-bottom: 1rem;
+    border-bottom: .05rem solid #e5e5e5;
+}
+    .header h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 3rem;
+    }
+
+.content{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.form-login {
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.form-login input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.form-login input[type="password"] {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-registration{
+	max-width: 480px;
+	margin: 0 auto;
+}
+
+.form-registration input[type="email"]
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 2px 2px;
+}
+
+.form-registration input[type="text"] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.form-registration input[type="password"] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.form-registration table{
+    min-width: 380px;
+}
+#posts th
+{
+    text-align: center;
+    background-color: #4169E1;
+    color: white;
+}
+
+#posts td
+{
+    color:  #4169E1;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.footer {
+    padding-top: 1.5rem;
+    color: #777;
+    border-top: .05rem solid #e5e5e5;
+}
+
+@media (min-width: 48em) {
+    .container {
+        max-width: 46rem;
+    }
+}
+
+.container-narrow > hr {
+    margin: 2rem 0;
+}
+
+.jumbotron {
+    text-align: center;
+    border-bottom: .05rem solid #e5e5e5;
+}
+
+    .jumbotron .btn {
+        padding: .75rem 1.5rem;
+        font-size: 1.5rem;
+    }
+
+.marketing {
+    margin: 3rem 0;
+}
+
+    .marketing p + h4 {
+        margin-top: 1.5rem;
+    }
+
+@media screen and (min-width: 48em) {
+    .header,
+    .marketing,
+    .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .header {
+        margin-bottom: 2rem;
+    }
+
+    .jumbotron {
+        border-bottom: 0;
+    }
+}
