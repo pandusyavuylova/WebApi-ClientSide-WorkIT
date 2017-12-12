@@ -69,6 +69,26 @@ body {
 .form-registration table{
     min-width: 380px;
 }
+
+.post-title{
+    color:  #4169E1;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.post-info{
+    color: lightgray;
+    font-size: 14px;
+}
+
+.post-description{
+    font-size: 24px;
+}
+
+.post-contacts{
+    color: darkgrey;
+    font-size: 22px;
+}
 #posts th
 {
     text-align: center;

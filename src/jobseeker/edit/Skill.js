@@ -85,7 +85,10 @@ class EditSkill extends React.Component{
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "http://localhost:5000/api/jobseeker/update/skill",
+            headers: {
+                "authorization": "bearer " + localStorage.getItem("token")
+            },
+            url: "http://localhost:65300/skills/edit/" + this.state.Id,
             dataType: "json",
             data: JSON.stringify({
                 "userId": userId,
@@ -140,7 +143,7 @@ class EditSkill extends React.Component{
                         <input type="text" id="Title"  class="form-control" value={this.state.Title} onChange={event => this.updateField(event)}/>
                     </td>
                 </tr>
-
+                <br/>
                 <tr>
                     <td>
                         <label for="Level"><b>Level</b></label>
@@ -162,7 +165,7 @@ class EditSkill extends React.Component{
                         </select>
                     </td>
                 </tr>
-               
+                <br/>
                 <tr>
                     <td colspan="2">
                         <input type="button" onClick={this.handleClick} class="btn btn-primary"  value="Save changes" />

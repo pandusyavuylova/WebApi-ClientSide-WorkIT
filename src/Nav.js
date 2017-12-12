@@ -41,6 +41,9 @@ class NavMenu extends React.Component{
                       <NavLink className="nav-link" to="/recruiter/posts" activeClassName="nav-link active">Posts</NavLink>
                     </li>
                     <li class="nav-item">
+                       <NavLink className="nav-link" to="/recruiter/find/jobseeker" activeClassName="nav-link active">Find jobseeker</NavLink>
+                   </li>
+                    <li class="nav-item">
                       <NavLink className="nav-link" to="/logout" activeClassName="nav-link active">Logout</NavLink>
                     </li>
                   </ul>

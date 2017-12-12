@@ -86,15 +86,20 @@ class NewPost extends React.Component{
         {
             return (
                 <div>
-                    <h2>{this.state.Title}</h2>
+                    <span class="post-title">{this.state.Title}</span>
+                    <br/>
+                    <span class="post-info">Posted on {this.state.CreationData} by <a href={'/profile/' + this.state.OwnerId}>{this.state.Name} {this.state.Surname}</a></span>
+                    <br/>
+                    <span class="post-description">{this.state.Description}</span>
                     <br/>
                     <br/>
-                    <h2>{this.state.Description}</h2>
-                    <br/>
-                    <br/>
-                    <h2>{this.state.Phone}</h2>
-                    <br/>
-                    <br/>
+                    <span class="post-contacts">
+                         Contacts:
+                         <br/>
+                         {this.state.Phone}
+                         <br/>
+                         {this.state.Email}
+                    </span>
                 </div>
             );
         }
