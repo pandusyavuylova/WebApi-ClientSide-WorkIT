@@ -2,6 +2,7 @@ import React from "react";
 import $ from "jquery";
 import {Redirect} from "react-router-dom";
 import {NotificationContainer, NotificationManager} from "react-notifications";
+import {CheckUserAuth} from "./User";
 
 class Profile extends React.Component
 {
@@ -10,6 +11,7 @@ class Profile extends React.Component
         this.getSkillsData = this.getSkillsData.bind(this);
         this.getPostsData = this.getPostsData.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.sendOffer = this.sendOffer.bind(this);
         this.state = {
             userType: -1,
             Name: "",
@@ -23,6 +25,7 @@ class Profile extends React.Component
             PostsData: [],
             Redirecting: 0,
             RedirectPostId: 0,
+            ClickedSendOffer: false,
 
             /* Address = user.Address,
             DateOfBirth = user.DateOfBirth,
@@ -31,6 +34,13 @@ class Profile extends React.Component
             Lastname = user.Lastname,
             Phone = user.Phone */
         }
+    }
+
+    sendOffer = function()
+    {
+        this.setState({
+            ClickedSendOffer: true,
+        });
     }
 
     handleClick = function(postId)
@@ -52,22 +62,25 @@ class Profile extends React.Component
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "http://localhost:65300/skills/get/" + this.state.userId,
+            headers: {
+                "authorization": "bearer " + localStorage.getItem("token")
+            },
+            url: "http://localhost:65300/skills/get/user" + this.props.match.params.id,
             dataType: "json",
             data: JSON.stringify({
                 "userId": this.state.userId,
             }),
             success: response => {
-                if (response['status'] === 1)
-                {
+                //if (response['status'] === 1)
+                //{
                    this.setState({
-                        SkillsData: response['data']//?
+                        SkillsData: response
                    });
-                }
+                /*}
                 else
                 {  
                     NotificationManager.error(response['message']);
-                }
+                }*/
             },
 
             error: function (jqXHR, exception) {
@@ -97,22 +110,25 @@ class Profile extends React.Component
         $.ajax({
             type: "POST",
             contentType: "application/json",
+            headers: {
+                "authorization": "bearer " + localStorage.getItem("token")
+            },
             url: "http://localhost:65300/posts/user" + this.state.userId,
             dataType: "json",
             data: JSON.stringify({
                 "userId": this.state.userId,
             }),
             success: response => {
-                if (response['status'] === 1)
-                {
+                //if (response['status'] === 1)
+                //{
                    this.setState({
-                        PostsData: response['data']//?
+                        PostsData: response
                    });
-                }
+                /*}
                 else
                 {  
                     NotificationManager.error(response['message']);
-                }
+                }*/
             },
 
             error: function (jqXHR, exception) {
@@ -146,20 +162,20 @@ class Profile extends React.Component
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "http://localhost:65300/user/profile/" + this.state.userId,
+            url: "http://localhost:65300/user/profile/" + this.props.match.params.id,
             dataType: "json",
             data: JSON.stringify({
                 "userId" : this.props.match.params.id,
             }),
 
             success: response => {
-                if (response['status'] === 1)
-                {
+                //if (response['status'] === 1)
+                //{
                    this.setState({
                         userType: response['userType'],
-                        Name: response['name'],
-                        Surname: response['surname'],
-                        DateOfBirth: response['dateOfBirth'],
+                        Name: response['firstname'],
+                        Surname: response['lastname'],
+                        DateOfBirth: response['date_of_birth'],
                         Email: response['email'],
                         Address: response['address'],
                         Phone: response['phone'],
@@ -172,14 +188,14 @@ class Profile extends React.Component
                    {
                        this.getPostsData();
                    }
-                }
+                /*}
                 else
                 {  
                     this.setState({
                         userId: -1,
                      });
                     NotificationManager.error(response['message']);
-                }
+                }*/
             },
 
             error: function (jqXHR, exception) {
@@ -205,6 +221,14 @@ class Profile extends React.Component
     }
 
     render(){
+
+        if (this.state.ClickedSendOffer)
+        {
+            return(
+                <Redirect to={"/recruiter/create/offer/" + this.state.UserId} push/>
+            );
+        }
+
         if (this.state.Redirecting == 1)
         {
             return (
@@ -225,13 +249,14 @@ class Profile extends React.Component
         {
             return (
                 <div>
-                    <span>{this.state.Name} {this.state.Surname}</span>
+                    <span class="title">{this.state.Name} {this.state.Surname}</span>
                     <br/>
-                    <span>Jobseeker</span>
+                    <span class="extra-info">Jobseeker</span>
                     <br/>
-                    <span>Email: {this.state.Email}</span>
+                    <span class="main-info">Email: {this.state.Email}</span>
                     <br/>
-                    <span>Phone: {this.state.Phone}</span>
+                    <span class="main-info">Phone: {this.state.Phone}</span>
+                    <br/>
                     <br/>
 
                     <table class="table table-striped table-dark" id="posts">
@@ -244,13 +269,22 @@ class Profile extends React.Component
                     {this.state.SkillsData.map(function(item, key) {
                                 return (
                                     <tr key = {key}>
-                                        <td id="skill">{item.title}</td>
-                                        <td id="skill">{this.getSkillLevelTitle(item.level)}</td>
+                                        <td id="skill">
+                                            <span class="title">{item.name}</span>
+                                        </td>
+                                        <td id="skill">
+                                            <span class="title">{this.getSkillLevelTitle(item.level)}</span>
+                                        </td>
                                     </tr>
                                     )
                                 }, this)}
                     </tbody>
                     </table>
+                    {
+                        ( (CheckUserAuth()['userType'] == 1)) ?
+                        (<input type="button" class="btn btn-primary" value="Send offer" onClick={this.sendOffer}/>) :
+                        (<div></div>) 
+                    }
                     <NotificationContainer/>
                 </div>
             ); 
@@ -260,13 +294,13 @@ class Profile extends React.Component
         {
             return (
                 <div>
-                    <span>{this.state.Name} {this.state.Surname}</span>
+                    <span class="title">{this.state.Name} {this.state.Surname}</span>
                     <br/>
-                    <span>Recruiter</span>
+                    <span class="extra-info">Recruiter</span>
                     <br/>
-                    <span>Email: {this.state.Email}</span>
+                    <span class="main-info">Email: {this.state.Email}</span>
                     <br/>
-                    <span>Phone: {this.state.Phone}</span>
+                    <span class="main-info">Phone: {this.state.Phone}</span>
                     <br/>
 
                     <table class="table table-striped table-dark" id="posts">

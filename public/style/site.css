@@ -71,13 +71,13 @@ body {
 }
 
 .post-title{
-    color:  #4169E1;
-    font-weight: bold;
+	color:  #4169E1;
+	font-weight: bold;
     font-size: 30px;
 }
 
 .post-info{
-    color: lightgray;
+	color: lightgray;
     font-size: 14px;
 }
 
@@ -86,9 +86,50 @@ body {
 }
 
 .post-contacts{
-    color: darkgrey;
+	color: darkgrey;
     font-size: 22px;
 }
+
+.title
+{
+	color:  #4169E1;
+	font-weight: bold;
+    font-size: 26px;
+}
+
+.extra-info
+{
+	color: darkgray;
+    font-size: 14px;
+}
+
+.main-info
+{
+	 font-size: 24px;
+}
+
+.contact-info
+{
+	color: darkgrey;
+    font-size: 18px;
+}
+
+tr.unread td {
+	background-color: #F0E68C; 
+}
+
+tr.waiting td {
+	background-color: #F0E68C; 
+}
+
+tr.accepted td {
+	background-color: green; 
+}
+
+tr.rejected td {
+	background-color: red; 
+}
+
 #posts th
 {
     text-align: center;
@@ -96,12 +137,6 @@ body {
     color: white;
 }
 
-#posts td
-{
-    color:  #4169E1;
-    font-weight: bold;
-    font-size: 24px;
-}
 
 .footer {
     padding-top: 1.5rem;

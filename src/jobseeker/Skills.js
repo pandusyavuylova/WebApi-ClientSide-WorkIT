@@ -11,6 +11,7 @@ class Skills extends React.Component{
         this.getSkillsList = this.getSkillsList.bind(this);
         this.getLevelTitle = this.getLevelTitle.bind(this);
         this.deleteSkill = this.deleteSkill.bind(this);
+        this.editSkill = this.editSkill.bind(this);
         this.state = {
             createNew: false,
             skillsInfo: [],
@@ -175,8 +176,11 @@ class Skills extends React.Component{
                     
                             return (
                                 <tr key = {key}>
-                                    <td id="skill">{item.name}</td>
-                                    <td id="skill">{this.getLevelTitle(item.level)}</td>
+                                    <td id="skill">
+                                        <span class="title">{item.name}</span>
+                                        <br/>
+                                        <span class="extra-info">{this.getLevelTitle(item.level)}</span>
+                                    </td>
                                     <td align="right">
                                         <input type="button" className="btn btn-warning" value="Edit" onClick={event => this.editSkill(item.id)}/>
                                         <input type="button" className="btn btn-danger" value="Delete" onClick={event => this.deleteSkill(item.id)}/>

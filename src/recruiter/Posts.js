@@ -8,15 +8,36 @@ class Posts extends React.Component{
         super()
         this.getPostsList = this.getPostsList.bind(this);
         this.deletePost = this.deletePost.bind(this);
+        this.reviewPost = this.reviewPost.bind(this);
         this.state = {
             CreateNew: false,
             postsInfo: [],
+            ReviewPost: false,
+            ReviewPostId: 0,
+            EditPost: false,
+            EditPostId: 0,
         }
     }
 
     updateState(event){
         this.setState({
             [event.target.id] : true,
+        });
+    }
+
+    reviewPost = function(postId)
+    {
+        this.setState({
+            ReviewPost: true,
+            ReviewPostId: postId,
+        });
+    }
+
+    editPost = function(postId)
+    {
+        this.setState({
+            EditPost: true,
+            EditPostId: postId,
         });
     }
 
@@ -125,6 +146,20 @@ class Posts extends React.Component{
 
     render()
     {
+        if (this.state.EditPost)
+        {
+            return (
+                <Redirect to={'/recruiter/edit/post/' + this.state.EditPostId} push/>
+            );
+        }
+        
+        if (this.state.ReviewPost)
+        {
+            return (
+                <Redirect to={'/post/' + this.state.ReviewPostId} push/>
+            );
+        }
+
         if (this.state.CreateNew)
         {
             return (

@@ -8,17 +8,28 @@ class FindJobseeker extends React.Component
     {
         super()
         this.handleClick = this.handleClick.bind(this)
+        this.ReviewProfile = this.ReviewProfile.bind(this)
         this.state = {
             Status: 0,
             Title: "",
             Level: -1,
             JobseekersInfo: [],
+            Redirecting: false,
+            RedirectingJobseekerId: 0
         }
     }
 
     updateField(event){
         this.setState({
             [event.target.id] : event.target.value,
+        });
+    }
+
+    ReviewProfile(jobseekerId)
+    {
+        this.setState({
+            Redirecting: true,
+            RedirectingJobseekerId: jobseekerId,
         });
     }
     
@@ -95,6 +106,13 @@ class FindJobseeker extends React.Component
 
     render()
     {
+        if (this.state.Redirecting)
+        {
+            return(
+                <Redirect to={"/profile/" + this.state.RedirectingJobseekerId} push/>
+            );
+        }
+
         if (this.state.Status === 0)
         {
             return (
@@ -271,17 +289,13 @@ class FindJobseeker extends React.Component
                             
                                     return (
                                         <tr key = {key}>
-                                            <td id="skill">{item.firstname} {item.lastname}</td>
-                                            {/* <td id="skill">{this.getLevelTitle(item.level)}</td> */}
-                                            <td id="skill">
-                                            {item.skills.map(function(item1, key1){
-                                                return (
-                                                    <tr key = {key1}>
-                                                        <td id="skill">{item1.name} </td>
-                                                        <td id="skill">{item1.level}</td>
-                                                    </tr>
-                                                )
-                                            }, this)}
+                                            <td>
+                                                <span class="title">{item.firstname} {item.lastname}</span>
+                                                <br/>
+                                                <span class="extra-info">{this.getLevelTitle(item.level)}</span>
+                                            </td>
+                                            <td  align="right">
+                                                 <input type="button" class="btn btn-primary" value="Review profile" onClick={event => this.ReviewProfile(item.id)} />
                                             </td>
                                         </tr>
                                         )
